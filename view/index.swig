@@ -1,6 +1,6 @@
 {%extends 'block/layout.swig'%}
 {%block title-%}
-ws demo
+Anonymous livechat
 {%-endblock%}
 {%block content-%}
 <div class="container">
