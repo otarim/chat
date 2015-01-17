@@ -1,0 +1,32 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "Anonymous livechat",
+  "main": "lib/chat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/otarim/chat.git"
+  },
+  "dependencies": {
+    "chinese-random-name": "0.0.4",
+    "mime": "^1.2.11",
+    "router": "^1.0.0-beta.2",
+    "socket.io": "^1.2.1",
+    "swig": "^1.4.2"
+  },
+  "keywords": [
+    "Anonymous",
+    "chat",
+    "otarim",
+    "socket.io"
+  ],
+  "author": "otarim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/otarim/chat/issues"
+  },
+  "homepage": "https://github.com/otarim/chat"
+}
