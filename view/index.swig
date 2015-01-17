@@ -91,8 +91,8 @@ ws demo
 		var $textContent = $('#content'),
 			// $btn = $('#post'),
 			$chat = $('.chat')
-		// var socket = io.connect('http://127.0.0.1:{{port}}')
-		var socket = io.connect('http://192.168.199.208:{{port}}')
+		var socket = io.connect('http://otarim.koding.io:{{port}}')
+		// var socket = io.connect('http://192.168.199.208:{{port}}')
 		// var socket = io.connect('http://192.168.17.150:{{port}}')
 		socket.binaryType = 'arraybuffer'
 		var me = {}
@@ -148,6 +148,7 @@ ws demo
 			}
 			var $msg = $('<div class="'+className+'"'+sign+'><img src="'+e.avator+'"><p><em>'+e.name+'</em></p><p style="background: '+e.color+'">'+e.msg+'</p></div>')
 			chat.render($msg)
+			chat.sound.msg()
 		}).on('voice',function(e){
 			var className = 'msg'
 			var dataView = new DataView(e.buf),
@@ -157,6 +158,7 @@ ws demo
 			}
 			var $msg = $('<div class="'+className+'"><img src="'+e.avator+'"><p><em>'+e.name+'</em></p><p style="background: '+e.color+'"><span class="audio"><audio src="'+window.URL.createObjectURL(blob)+'"></audio><span></p></div>')
 			chat.render($msg)
+			chat.sound.msg()
 		}).on('pic',function(e){
 			var className = 'msg'
 			if(e.name !== me.name){
@@ -164,12 +166,15 @@ ws demo
 			}
 			var $msg = $('<div class="'+className+'"><img src="'+e.avator+'"><p><em>'+e.name+'</em></p><p style="background: '+e.color+'"><img src="'+e.pic+'" /></p></div>')
 			chat.render($msg)
+			chat.sound.msg()
 		}).on('enter',function(e){
 			var $msg = $('<p class="tc"><em>'+e.name+'加入聊天室</em></p>')
 			chat.render($msg)
+			chat.sound.line()
 		}).on('leave',function(e){
 			var $msg = $('<p class="tc"><i>'+e.name+'离开了聊天室</i></p>')
 			chat.render($msg)
+			chat.sound.line()
 		}).on('@user',function(e){
 			var list = e.userlist.map(function(list){
 				return '<p>'+list+'</p>'
@@ -179,6 +184,7 @@ ws demo
 			// $('div[data-sign*="'+e.sign+'"]')
 			// console.log(e.from + '发来了私信：' + e.msg)
 			unreadList.update(e)
+			chat.sound.notify()
 		})
 		// $(window).on('beforeunload',function(){
 		// 	socket.emit('leave')
@@ -279,6 +285,23 @@ ws demo
 			var $chat = $('.chat'),
 				$textContent = $('#content')
 			return {
+				sound: {
+					msg: function(){
+						var sound = new Audio
+						sound.src = '/public/sound/message.ogg'
+						sound.play()
+					},
+					line: function(){
+						var sound = new Audio
+						sound.src = '/public/sound/line.ogg'
+						sound.play()
+					},
+					notify: function(){
+						var sound = new Audio
+						sound.src = '/public/sound/notify.ogg'
+						sound.play()
+					}
+				},
 				render: function(msg){
 					$chat.append(msg)
 					msg[0].scrollIntoView()
